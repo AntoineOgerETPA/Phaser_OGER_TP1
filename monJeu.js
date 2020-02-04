@@ -30,10 +30,11 @@ var bomb;
 
 function preload(){
 	this.load.image('background','assets/sky.png');
-	this.load.image('etoile','assets/star.png');
-	this.load.image('sol','assets/platform.png');
+	this.load.image('etoile','assets/star2.png');
+	this.load.image('sol','assets/platform2.png');
+		this.load.image('sol2','assets/platform3.png');
 	this.load.image('bomb','assets/bomb.png');
-	this.load.spritesheet('perso','assets/dude.png',{frameWidth: 32, frameHeight: 48});
+	this.load.spritesheet('perso','assets/dudee.png',{frameWidth: 32, frameHeight: 32});
 }
 
 
@@ -42,8 +43,9 @@ function create(){
 	this.add.image(400,300,'background');
 
 	platforms = this.physics.add.staticGroup();
-	platforms.create(400,568,'sol').setScale(2).refreshBody();
-	platforms.create(600,400,'sol');
+	platforms.create(220,568,'sol2').setScale(3).refreshBody();
+	platforms.create(400,400,'sol');
+	platforms.create(600,200,'sol');
 	platforms.create(50,250,'sol');
 
 	player = this.physics.add.sprite(100,450,'perso');
@@ -56,7 +58,7 @@ function create(){
 
 	this.anims.create({
 		key:'left',
-		frames: this.anims.generateFrameNumbers('perso', {start: 0, end: 3}),
+		frames: this.anims.generateFrameNumbers('perso', {start: 0, end: 6}),
 		frameRate: 10,
 		repeat: -1
 	});
@@ -88,11 +90,11 @@ function update(){
 	if(cursors.left.isDown){
 		player.anims.play('left', true);
 		player.setVelocityX(-300);
-		player.setFlipX(false);
+		player.setFlipX(true);
 	}else if(cursors.right.isDown){
 		player.setVelocityX(300);
 		player.anims.play('left', true);
-		player.setFlipX(true);
+		player.setFlipX(false);
 	}else{
 		player.anims.play('stop', true);
 		player.setVelocityX(0);
