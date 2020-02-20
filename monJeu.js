@@ -118,6 +118,11 @@ function update(){
 		player.setVelocityY(-330);
 	}
 
+	if(cursors.down.isDown){
+		player.body.setGravityY(-500);
+		player.setVelocityY(330);
+	}
+
 
 
 
