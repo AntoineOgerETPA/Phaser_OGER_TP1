@@ -19,8 +19,8 @@ scene: {
 
 var game = new Phaser.Game(config);
 var score = 0;
-var jumps = 0;
 var vie = 3;
+var jump = 0;
 
 var onTheGround = player.body.touching.down;
 function init() {
@@ -114,14 +114,15 @@ function update(){
 		player.setVelocityX(0);
 	}
 
+
+//jump
 	if(cursors.up.isDown && player.body.touching.down){
-		player.setVelocityY(-330);
+		player.setVelocityY(-200);
+		this.jump++;
 	}
 	if(this.jump = 1 && cursors.up.isDown){
 		player.setVelocityY(-200);
 }
-
-
 
 
 //Perte de Vie
