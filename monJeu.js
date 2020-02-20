@@ -19,8 +19,6 @@ scene: {
 
 var game = new Phaser.Game(config);
 var score = 0;
-var jumps = 0;
-var onTheGround = player.body.touching.down;
 function init() {
 var platforms;
 var player;
@@ -28,7 +26,6 @@ var cursors;
 var stars;
 var scoreText;
 var bomb;
-var vie = 3;
 }
 
 function preload(){
@@ -38,18 +35,12 @@ function preload(){
 		this.load.image('sol2','assets/platform3.png');
 	this.load.image('bomb','assets/bomb.png');
 	this.load.spritesheet('perso','assets/dudee.png',{frameWidth: 32, frameHeight: 32});
-	this.load.image('life1','assets/vie1.png');
-		this.load.image('life2','assets/vie2.png');
-			this.load.image('life3','assets/vie3.png');
 }
 
 
 
 function create(){
 	this.add.image(400,300,'background');
-	this.add.image(400,300,'life1').setScale(0.25);
-	this.add.image(400,300,'life2').setScale(0.25);
-	this.add.image(400,300,'life3').setScale(0.25);
 
 	platforms = this.physics.add.staticGroup();
 	platforms.create(220,568,'sol2').setScale(3).refreshBody();
@@ -93,13 +84,9 @@ function create(){
 	this.physics.add.collider(player,bombs, hitBomb, null, this);
 }
 
-function hitBomb(player, bomb){
-	vie --;
-	bomb.destroy(true);
-}
+
 
 function update(){
-
 	if(cursors.left.isDown){
 		player.anims.play('left', true);
 		player.setVelocityX(-300);
@@ -117,29 +104,13 @@ function update(){
 		player.setVelocityY(-330);
 	}
 
-
-
-
-//Perte de Vie
-
-	if (vie == 2){
-		life3.destroy(true);
-	}
-	else if (vie == 1){
-		life2.destroy(true);
-	}
-	else if (vie == 0){
-		life1.destroy(true);
-		this.physics.pause();
-		player.setTint(0xff0000);
-		player.anims.play('turn');
-		gameOver = true;
-		score = 0;
-		vie = 3;
-	}
 }
-
-
+function hitBomb(player, bomb){
+	this.physics.pause();
+	player.setTint(0xff0000);
+	player.anims.play('turn');
+	gameOver=true;
+}
 
 function collectStar(player, star){
 	star.disableBody(true,true);
