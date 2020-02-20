@@ -19,6 +19,13 @@ scene: {
 
 var game = new Phaser.Game(config);
 var score = 0;
+<<<<<<< HEAD
+=======
+var jumps = 0;
+var vie = 3;
+
+var onTheGround = player.body.touching.down;
+>>>>>>> parent of e820a53... Revert "vie"
 function init() {
 var platforms;
 var player;
@@ -41,6 +48,12 @@ function preload(){
 
 function create(){
 	this.add.image(400,300,'background');
+<<<<<<< HEAD
+=======
+	life1 = this.add.image(400,300,'life1').setScale(0.25);
+	life2 = this.add.image(400,300,'life2').setScale(0.25);
+	life3 = this.add.image(400,300,'life3').setScale(0.25);
+>>>>>>> parent of e820a53... Revert "vie"
 
 	platforms = this.physics.add.staticGroup();
 	platforms.create(220,568,'sol2').setScale(3).refreshBody();
@@ -71,7 +84,7 @@ function create(){
 
 	stars = this.physics.add.group({
 		key: 'etoile',
-		repeat:11,
+		repeat:1,
 		setXY: {x:12,y:0,stepX:70}
 	});
 
