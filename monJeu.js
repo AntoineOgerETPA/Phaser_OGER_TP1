@@ -19,8 +19,8 @@ scene: {
 
 var game = new Phaser.Game(config);
 var score = 0;
-var jump = 0;
-var djump = 0;
+var jump = 2;
+var djump = 1;
 var vie = 3;
 
 function init() {
