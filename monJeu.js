@@ -19,10 +19,10 @@ scene: {
 
 var game = new Phaser.Game(config);
 var score = 0;
-var vie = 3;
 var jump = 0;
+var djump = 0;
+var vie = 3;
 
-var onTheGround = player.body.touching.down;
 function init() {
 var platforms;
 var player;
@@ -33,26 +33,28 @@ var bomb;
 }
 
 function preload(){
+
 	this.load.image('background','assets/sky.png');
 	this.load.image('etoile','assets/star2.png');
 	this.load.image('sol','assets/platform2.png');
-		this.load.image('sol2','assets/platform3.png');
+	this.load.image('sol2','assets/platform3.png');
 	this.load.image('bomb','assets/bomb.png');
 	this.load.spritesheet('perso','assets/dudee.png',{frameWidth: 32, frameHeight: 32});
 	this.load.image('life1','assets/vie1.png');
-		this.load.image('life2','assets/vie2.png');
-			this.load.image('life3','assets/vie3.png');
+	this.load.image('life2','assets/vie2.png');
+	this.load.image('life3','assets/vie3.png');
 }
-
 
 
 function create(){
 	this.add.image(400,300,'background');
+
 	life1 = this.add.image(400,300,'life1').setScale(0.25);
 	life2 = this.add.image(400,300,'life2').setScale(0.25);
 	life3 = this.add.image(400,300,'life3').setScale(0.25);
 
 	platforms = this.physics.add.staticGroup();
+
 	platforms.create(220,568,'sol2').setScale(3).refreshBody();
 	platforms.create(400,400,'sol');
 	platforms.create(600,200,'sol');
@@ -114,16 +116,30 @@ function update(){
 		player.setVelocityX(0);
 	}
 
-
-//jump
+//jump & Double jump
 	if(cursors.up.isDown && player.body.touching.down){
-		player.setVelocityY(-200);
-		this.jump++;
+		this.jump = 2;
 	}
-	if(this.jump = 1 && cursors.up.isDown){
-		player.setVelocityY(-200);
+if((this.djump == 1) && (this.jump > 0) && (cursors.up.isDown)){
+	this.jump --;
+	this.djump = 0;
+	if(this.jump == 1){
+		player.setVelocityY(-250);
+	}
+	if(this.jump == 0){
+		player.setVelocityY(-250);
+	}
+}
+if(cursors.up.isUp) {
+	this.djump = 1;
 }
 
+//Inverser la gravité
+	if(cursors.down.isDown){
+		player.body.setGravityY(-500);
+		player.setVelocityY(330);
+		player.setFlipY(true);
+	}
 
 //Perte de Vie
 
