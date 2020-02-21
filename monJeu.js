@@ -22,26 +22,29 @@ var score = 0;
 var jumps = 0;
 var vie = 3;
 
-var onTheGround = player.body.touching.down;
 function init() {
 var platforms;
 var player;
 var cursors;
 var stars;
+var pieces;
 var scoreText;
 var bomb;
+var bombaex;
 }
 
 function preload(){
 	this.load.image('background','assets/sky.png');
 	this.load.image('etoile','assets/star2.png');
 	this.load.image('sol','assets/platform2.png');
-		this.load.image('sol2','assets/platform3.png');
+	this.load.image('sol2','assets/platform3.png');
 	this.load.image('bomb','assets/bomb.png');
+	this.load.image('bombaex','assets/bombaex.png');
+	this.load.image('piece','assets/collectible.png');
 	this.load.spritesheet('perso','assets/dudee.png',{frameWidth: 32, frameHeight: 32});
 	this.load.image('life1','assets/vie1.png');
-		this.load.image('life2','assets/vie2.png');
-			this.load.image('life3','assets/vie3.png');
+	this.load.image('life2','assets/vie2.png');
+	this.load.image('life3','assets/vie3.png');
 }
 
 
@@ -85,20 +88,34 @@ function create(){
 		setXY: {x:12,y:0,stepX:70}
 	});
 
+	pieces = this.physics.add.group({
+		key: 'piece',
+		repeat:1,
+		setXY: {x:250,y:0,stepX:50}
+	});
+
 	this.physics.add.collider(stars,platforms);
+	this.physics.add.collider(pieces,platforms);
 	this.physics.add.overlap(player,stars,collectStar,null,this);
+	this.physics.add.overlap(player,pieces,collectPiece,null,this);
 
 	scoreText = this.add.text(16,16, 'score: 0', {fontSize: '32px', fill:'#000'});
 	bombs = this.physics.add.group();
+	bomb2 = this.physics.add.group();
 	this.physics.add.collider(bombs,platforms);
+	this.physics.add.collider(bomb2,platforms);
 	this.physics.add.collider(player,bombs, hitBomb, null, this);
+	this.physics.add.collider(player,bomb2, hitBomb2, null, this);
 }
 
 function hitBomb(player, bomb){
 	vie --;
 	bomb.destroy(true);
 }
-
+function hitBomb2(player, bombaex){
+	vie --;
+	bombaex.destroy(true);
+}
 function update(){
 
 	if(cursors.left.isDown){
@@ -142,7 +159,7 @@ function update(){
 
 
 
-function collectStar(player, star){
+function collectStar(player,star){
 	star.disableBody(true,true);
 	score += 10;
 	scoreText.setText('score: '+score);
@@ -158,5 +175,23 @@ function collectStar(player, star){
 		bomb.setBounce(1);
 		bomb.setCollideWorldBounds(true);
 		bomb.setVelocity(Phaser.Math.Between(-20, 700), 20);
+	}
+}
+function collectPiece(player,piece){
+	piece.disableBody(true,true);
+	score += 100;
+	scoreText.setText('score: '+score);
+	if(pieces.countActive(true)===0){
+		pieces.children.iterate(function(child){
+			child.enableBody(true,child.x,0, true, true);
+		});
+
+		var x = (player.x < 400) ?
+			Phaser.Math.Between(400,800):
+			Phaser.Math.Between(0,400);
+		var bombaex = bomb2.create(x, 16, 'bombaex');
+		bombaex.setBounce(1);
+		bombaex.setCollideWorldBounds(true);
+		bombaex.setVelocity(Phaser.Math.Between(100, 1700), 10);
 	}
 }
