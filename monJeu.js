@@ -124,8 +124,6 @@ function hitBomb2(player, bombaex){
 }
 function update(){
 
-
-function update(){
 	if(cursors.left.isDown){
 		player.anims.play('left', true);
 		player.setVelocityX(-300);
@@ -174,14 +172,9 @@ if(cursors.up.isUp) {
 		score = 0;
 		vie = 3;
 	}
+}
 
-}
-function hitBomb(player, bomb){
-	this.physics.pause();
-	player.setTint(0xff0000);
-	player.anims.play('turn');
-	gameOver=true;
-}
+
 
 function collectStar(player,star){
 	star.disableBody(true,true);
