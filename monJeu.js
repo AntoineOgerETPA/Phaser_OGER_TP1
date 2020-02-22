@@ -19,7 +19,8 @@ scene: {
 
 var game = new Phaser.Game(config);
 var score = 0;
-var jumps = 0;
+var jump = 2;
+var djump = 1;
 var vie = 3;
 
 function init() {
@@ -34,6 +35,7 @@ var bombaex;
 }
 
 function preload(){
+
 	this.load.image('background','assets/sky.png');
 	this.load.image('etoile','assets/star2.png');
 	this.load.image('sol','assets/platform2.png');
@@ -48,14 +50,15 @@ function preload(){
 }
 
 
-
 function create(){
 	this.add.image(400,300,'background');
+
 	life1 = this.add.image(400,300,'life1').setScale(0.25);
 	life2 = this.add.image(400,300,'life2').setScale(0.25);
 	life3 = this.add.image(400,300,'life3').setScale(0.25);
 
 	platforms = this.physics.add.staticGroup();
+
 	platforms.create(220,568,'sol2').setScale(3).refreshBody();
 	platforms.create(400,400,'sol');
 	platforms.create(600,200,'sol');
@@ -131,12 +134,30 @@ function update(){
 		player.setVelocityX(0);
 	}
 
+//jump & Double jump
 	if(cursors.up.isDown && player.body.touching.down){
-		player.setVelocityY(-330);
+		this.jump = 2;
 	}
+if((this.djump == 1) && (this.jump > 0) && (cursors.up.isDown)){
+	this.jump --;
+	this.djump = 0;
+	if(this.jump == 1){
+		player.setVelocityY(-250);
+	}
+	if(this.jump == 0){
+		player.setVelocityY(-250);
+	}
+}
+if(cursors.up.isUp) {
+	this.djump = 1;
+}
 
-
-
+//Inverser la gravité
+	if(cursors.down.isDown){
+		player.body.setGravityY(-500);
+		player.setVelocityY(330);
+		player.setFlipY(true);
+	}
 
 //Perte de Vie
 
