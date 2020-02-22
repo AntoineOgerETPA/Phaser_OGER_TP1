@@ -44,9 +44,6 @@ function preload(){
 	this.load.image('bombaex','assets/bombaex.png');
 	this.load.image('piece','assets/collectible.png');
 	this.load.spritesheet('perso','assets/dudee.png',{frameWidth: 32, frameHeight: 32});
-	this.load.image('life1','assets/vie1.png');
-	this.load.image('life2','assets/vie2.png');
-	this.load.image('life3','assets/vie3.png');
 }
 
 
@@ -121,6 +118,8 @@ function hitBomb2(player, bombaex){
 }
 function update(){
 
+
+function update(){
 	if(cursors.left.isDown){
 		player.anims.play('left', true);
 		player.setVelocityX(-300);
@@ -169,9 +168,14 @@ if(cursors.up.isUp) {
 		score = 0;
 		vie = 3;
 	}
+
 }
-
-
+function hitBomb(player, bomb){
+	this.physics.pause();
+	player.setTint(0xff0000);
+	player.anims.play('turn');
+	gameOver=true;
+}
 
 function collectStar(player,star){
 	star.disableBody(true,true);
