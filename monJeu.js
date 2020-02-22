@@ -152,13 +152,6 @@ if(cursors.up.isUp) {
 	this.djump = 1;
 }
 
-//Inverser la gravité
-	if(cursors.down.isDown){
-		player.body.setGravityY(-500);
-		player.setVelocityY(330);
-		player.setFlipY(true);
-	}
-
 //Perte de Vie
 
 	if (vie == 2){
