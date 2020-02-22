@@ -44,15 +44,21 @@ function preload(){
 	this.load.image('bombaex','assets/bombaex.png');
 	this.load.image('piece','assets/collectible.png');
 	this.load.spritesheet('perso','assets/dudee.png',{frameWidth: 32, frameHeight: 32});
+	this.load.image('life1','assets/vie1.png');
+	this.load.image('life2','assets/vie2.png');
+	this.load.image('life3','assets/vie3.png');
+
 }
 
 
 function create(){
 	this.add.image(400,300,'background');
 
+
 	life1 = this.add.image(400,300,'life1').setScale(0.25);
 	life2 = this.add.image(400,300,'life2').setScale(0.25);
 	life3 = this.add.image(400,300,'life3').setScale(0.25);
+
 
 	platforms = this.physics.add.staticGroup();
 
