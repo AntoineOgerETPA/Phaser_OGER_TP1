@@ -126,10 +126,10 @@ function create(){
 	    this.tweens.add({
 	        targets: monster,
 	        x: 700,
-	        duration: 3000,
+	        duration: 4500,
 	        ease: 'Power2',
 	        yoyo: true,
-	        delay: 1000,
+	        delay: 1500,
 					repeat: true
 	    });
 }
@@ -143,7 +143,7 @@ function hitBomb2(player, bombaex){
 	bombaex.destroy(true);
 }
 function hitMonstre(player,monster){
-	vie - 1;
+	vie --;
 }
 function update(){
 
@@ -177,7 +177,11 @@ if((this.djump == 1) && (this.jump > 0) && (cursors.up.isDown)){
 if(cursors.up.isUp) {
 	this.djump = 1;
 }
-
+if(cursors.down.isDown){
+	player.body.setGravityY(-500);
+	player.setVelocityY(330);
+	player.setFlipY(true);
+}
 //Perte de Vie
 
 	if (vie == 2){
