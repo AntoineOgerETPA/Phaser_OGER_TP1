@@ -48,8 +48,8 @@ function preload(){
 	this.load.image('life1','assets/vie1.png');
 	this.load.image('life2','assets/vie2.png');
 	this.load.image('life3','assets/vie3.png');
-
 }
+
 
 
 function create(){
