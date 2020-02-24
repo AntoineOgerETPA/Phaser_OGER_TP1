@@ -26,6 +26,7 @@ var vie = 3;
 function init() {
 var platforms;
 var player;
+var monster;
 var cursors;
 var stars;
 var pieces;
@@ -74,6 +75,12 @@ function create(){
 	player.body.setGravityY(000);
 	this.physics.add.collider(player,platforms);
 
+	//monstre
+	monster = this.physics.add.sprite(200,450,'monstre');
+	monster.body.setGravityY(000);
+	this.physics.add.collider(monster,platforms);
+
+
 	cursors = this.input.keyboard.createCursorKeys();
 
 	this.anims.create({
@@ -113,6 +120,19 @@ function create(){
 	this.physics.add.collider(bomb2,platforms);
 	this.physics.add.collider(player,bombs, hitBomb, null, this);
 	this.physics.add.collider(player,bomb2, hitBomb2, null, this);
+	this.physics.add.collider(monster,player, hitMonstre, null, this);
+
+	//anim monstre
+	    this.tweens.add({
+	        targets: monster,
+	        x: 700,
+	        duration: 4500,
+	        ease: 'Power2',
+	        yoyo: true,
+	        delay: 1500,
+					repeat: 152
+
+	    });
 }
 
 function hitBomb(player, bomb){
@@ -123,6 +143,11 @@ function hitBomb2(player, bombaex){
 	vie --;
 	bombaex.destroy(true);
 }
+function hitMonstre(player,monster){
+	score=- 500;
+};
+
+
 function update(){
 
 	if(cursors.left.isDown){
@@ -154,6 +179,11 @@ if((this.djump == 1) && (this.jump > 0) && (cursors.up.isDown)){
 }
 if(cursors.up.isUp) {
 	this.djump = 1;
+}
+if(cursors.down.isDown){
+	player.body.setGravityY(-500);
+	player.setVelocityY(330);
+	player.setFlipY(true);
 }
 
 //Perte de Vie
