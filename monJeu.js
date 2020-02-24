@@ -130,7 +130,8 @@ function create(){
 	        ease: 'Power2',
 	        yoyo: true,
 	        delay: 1500,
-					repeat: true
+					repeat: 152
+
 	    });
 }
 
@@ -143,8 +144,10 @@ function hitBomb2(player, bombaex){
 	bombaex.destroy(true);
 }
 function hitMonstre(player,monster){
-	vie --;
-}
+	score=- 500;
+};
+
+
 function update(){
 
 	if(cursors.left.isDown){
